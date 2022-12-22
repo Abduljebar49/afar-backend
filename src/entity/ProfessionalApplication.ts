@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import Model from "./Base";
+import Model, { applicationStatus } from "./Base";
 
 @Entity()
 export class ProfessionalApplication extends Model {
@@ -13,7 +13,10 @@ export class ProfessionalApplication extends Model {
   approvedById: string;
 
   @Column()
-  appliedFor: string;
+  appliedForId: string;
+
+  @Column()
+  type: string;
 
   @Column()
   registrationDate: Date;
@@ -29,4 +32,19 @@ export class ProfessionalApplication extends Model {
 
   @Column()
   issuedDate: string;
+
+  @Column({
+    type: "enum",
+    enum: applicationStatus,
+    default: applicationStatus.PENDING,
+    nullable: false,
+  })
+  status: applicationStatus;
+
+  @Column()
+  remark: string;
+
+  @Column()
+  amount: number;
+
 }
