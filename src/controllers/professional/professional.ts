@@ -24,11 +24,12 @@ export async function saveProfessional(req, res) {
 
     const data = await proRepository.save(body);
     const applicationBody = {
-      appliedForId: data.appliedForId,
-      serviceType: data.constructionTypeId,
-      serviceLevel: data.constructionLevelId,
-      recordRemark: data.remark ?? "",
-      ProfessionalId: data.id,
+      appliedForId: body.appliedForId,
+      remark: body.remark ?? "",
+      professionalId: data.id,
+      validYear: body.validYear,
+      registeredNo: body.registeredNo,
+      issuedDate: body.issuedDate,
     };
     const conAppData = await proApplicationRepo.save(applicationBody);
     data.constractionApplication = conAppData;
@@ -38,11 +39,12 @@ export async function saveProfessional(req, res) {
         var educationsObj: any = [];
         educations.forEach((ele) => {
           var temp = {
-            ProfessionalId: data.id,
-            model: ele.model,
-            type: ele.type,
-            libreNumber: ele.libreNumber,
-            chassisNumber: ele.chassisNumber,
+            professionalId: data.id,
+            educationalInstitute: ele.educationalInstitute,
+            fieldOfStudy: ele.fieldOfStudy,
+            professionalTitle: ele.professionalTitle,
+            dateReceived: ele.dateReceived,
+            educationFile: ele.educationFile,
           };
           educationsObj.push(temp);
         });
@@ -58,10 +60,11 @@ export async function saveProfessional(req, res) {
 
         employments.forEach((ele) => {
           employmentsObj.push({
-            ProfessionalId: data.id,
-            propertyId: ele.propertyTypeId ?? 0,
-            capacity: ele.capacity ?? "",
-            manufacturedDate: ele.manufacturedDate,
+            professionalId: data.id,
+            employer: ele.employer,
+            startDate: ele.startDate,
+            endDate: ele.endDate,
+            employmentFile: ele.employmentFile,
           });
         });
         await proEmploymentRepo.save(employmentsObj);

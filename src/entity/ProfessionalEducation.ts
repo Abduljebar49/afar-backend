@@ -7,7 +7,7 @@ export class ProfessionalEducation extends Model {
   professionalId: number;
 
   @Column()
-  educationInstitute: string;
+  educationalInstitute: string;
 
   @Column()
   fieldOfStudy: string;

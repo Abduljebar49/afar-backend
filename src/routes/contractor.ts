@@ -28,25 +28,56 @@ import {
 } from "../controllers/contractor/employees";
 import { getAllConsultant, getWithIdConsultant, getWithStatusConsultant, saveConsultant } from "../controllers/consultant/constractor";
 import { deleteCarsC, editCarsC, newCarsC } from "../controllers/consultant/cars";
-import { deleteProjectsC, editProjectsC, newProjectsC } from "../controllers/consultant/projects";
-import { deletePropertyC, editPropertyC, newPropertyC } from "../controllers/consultant/property";
-import { deleteShareholdersC, editShareholdersC, newShareholdersC } from "../controllers/consultant/shareholders";
-import { deleteEmployeesC, editEmployeesC, newEmployeesC } from "../controllers/consultant/employees";
+import { 
+  deleteProjectsC, 
+  editProjectsC, 
+  newProjectsC,
+ } from "../controllers/consultant/projects";
+import { 
+  deletePropertyC, 
+  editPropertyC, 
+  newPropertyC,
+ } from "../controllers/consultant/property";
+import { 
+  deleteShareholdersC, 
+  editShareholdersC, 
+  newShareholdersC,
+ } from "../controllers/consultant/shareholders";
+import { 
+  deleteEmployeesC, 
+  editEmployeesC, 
+  newEmployeesC,
+ } from "../controllers/consultant/employees";
+import { 
+  getAllProfessional, 
+  getWithIdProfessional, 
+  saveProfessional, 
+  getWithStatusProfessional,
+ } from "../controllers/professional/professional";
 
 const router = express.Router();
 
 const conApi = "/api/contractor";
 const consApi = "/api/consultant";
+const proApi = "/api/professional";
+
 //basics of contractor
 router.get(conApi, getAllContractor);
 router.get(`${conApi}/:id`, getWithId);
 router.post(`${conApi}`, saveContractor);
 router.get(`${conApi}/status/:status`, getWithStatus);
 
+//basics of consultant
 router.get(consApi, getAllConsultant);
 router.get(`${consApi}/:id`, getWithIdConsultant);
 router.post(`${consApi}`, saveConsultant);
 router.get(`${consApi}/status/:status`, getWithStatusConsultant);
+
+//basics of professional
+router.get(proApi, getAllProfessional);
+router.get(`${proApi}/:id`, getWithIdProfessional);
+router.post(`${proApi}`, saveProfessional);
+router.get(`${proApi}/status/:status`, getWithStatusProfessional);
 
 //car api
 router.post(`${conApi}/cars/edit`, editCars);

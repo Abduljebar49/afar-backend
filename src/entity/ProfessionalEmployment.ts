@@ -8,23 +8,14 @@ export class ProfessionalEmployment  extends Model{
   professionalId: string;
 
   @Column()
-  idNumber: string;
+  employer: string;
 
   @Column()
-  fullName: string;
+  startDate: Date;
 
   @Column()
-  position: string;
+  endDate: Date;
 
   @Column()
-  competenceId: number;
-
-  @Column()
-  employmentType: string;
-
-  @Column()
-  numberOfEmployee: string;
-
-  @Column()
-  remark: string;
+  employmentFile:string
 }
