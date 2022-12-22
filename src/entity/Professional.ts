@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import Model from "./Base";
 
 @Entity()
-export class ProfessionalEducation extends Model {
+export class Professional extends Model {
   @Column()
   name: string;
 
@@ -22,7 +22,7 @@ export class ProfessionalEducation extends Model {
   house_no: string;
 
   @Column()
-  phoneNumber: Int16Array;
+  phoneNumber: string;
 
   @Column()
   managerName: string;

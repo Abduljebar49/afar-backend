@@ -1,5 +1,4 @@
 import {
-  ContractorController,
   getAllContractor,
   getWithId,
   getWithStatus,
@@ -27,16 +26,22 @@ import {
   editEmployees,
   newEmployees,
 } from "../controllers/contractor/employees";
-import { Consrouter } from "./consultant";
+import { getAllConsultant, getWithIdConsultant, getWithStatusConsultant, saveConsultant } from "../controllers/consultant/constractor";
 
 const router = express.Router();
 
 const conApi = "/api/contractor";
+const consApi = "/api/consultant";
 //basics of contractor
 router.get(conApi, getAllContractor);
 router.get(`${conApi}/:id`, getWithId);
 router.post(`${conApi}`, saveContractor);
 router.get(`${conApi}/status/:status`, getWithStatus);
+
+router.get(consApi, getAllConsultant);
+router.get(`${consApi}/:id`, getWithIdConsultant);
+router.post(`${consApi}`, saveConsultant);
+router.get(`${consApi}/status/:status`, getWithStatusConsultant);
 
 //car api
 router.post(`${conApi}/cars/edit`, editCars);

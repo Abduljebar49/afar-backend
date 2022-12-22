@@ -1,7 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import Model, { applicationStatus } from "./Base";
 import { Consultant } from "./Consultant";
-import { Contractor } from "./Contractor";
 
 @Entity()
 export class ConsultantApplication extends Model {
@@ -52,6 +51,6 @@ export class ConsultantApplication extends Model {
   @Column()
   amount: number;
 
-  @ManyToOne((type)=>Consultant,(ca)=>ca.cars)
-  consultant:Consultant
+  // @ManyToOne((type)=>Consultant,(ca)=>ca.consultantApplications)
+  // consultant:Consultant
 }

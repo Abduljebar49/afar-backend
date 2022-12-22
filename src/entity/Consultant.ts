@@ -1,16 +1,18 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Model, { applicationStatus } from "./Base";
-
-import {  ConsultantApplication } from "./ConsultantApplication";
+import { ConsultantApplication } from "./ConsultantApplication";
 import { ConsultantCar } from "./ConsultantCar";
-import { ConsultantContractionProperty } from "./ConsultantConstructionPropery";
-import { ConsultantEmployee } from "./ConsultantEmployee";
-import { ConsultantProject } from "./ConsultantProject";
-import { ConsultantService } from "./ConsultantService";
-import { ConsultantShareHolder } from "./ConsultantShareholder";
+// import { applicationStatus } from "../consultant/ConsultantApplication";
+import {  ContractorApplication } from "./ContractorApplication";
+import { ContractorCar } from "./ContractorCar";
+import { ContractionProperty } from "./ContractorConstructionPropery";
+import { ContractorEmployee } from "./ContractorEmployee";
+import { ContractorProject } from "./ContractorProject";
+import { ContractorService } from "./ContractorService";
+import { ContractorShareHolder } from "./ContractorShareholder";
 
 @Entity()
-export class Consultant extends Model{
+export class Consultant extends Model {
   @Column({ nullable: false })
   companyName: string;
 
@@ -77,24 +79,48 @@ export class Consultant extends Model{
   constructionTypeId: number;
 
 
-  @OneToMany((type) => ConsultantCar, (ca) => ca.consultantId)
+  @OneToMany((_type) => ConsultantCar, (ca) => ca.contractorId,{
+    cascade:true
+  })
   cars: ConsultantCar[];
 
   @OneToMany((type) => ConsultantApplication, (ca) => ca.consultantId)
-  ConsultantApplications: ConsultantApplication[];
+  // @JoinColumn()
+  consultantApplications: ConsultantApplication[];
 
-  @OneToMany((type) => ConsultantEmployee, (ca) => ca.consultantId)
-  employees: ConsultantEmployee[];
+  @OneToMany((type) => ContractorEmployee, (ca) => ca.contractorId)
+  employees: ContractorEmployee[];
 
-  @OneToMany((type) => ConsultantContractionProperty, (ca) => ca.consultantId)
-  equipments: ConsultantContractionProperty[];
+  @OneToMany((type) => ContractionProperty, (ca) => ca.contractorId)
+  equipments: ContractionProperty[];
 
-  @OneToMany((_type) => ConsultantProject, (ca) => ca.consultantId)
-  projects: ConsultantProject[];
+  @OneToMany((type) => ContractorProject, (ca) => ca.contractorId)
+  // @JoinColumn()
+  projects: ContractorProject[];
 
-  @OneToMany((type) => ConsultantService, (ca) => ca.consultantId)
-  services: ConsultantService[];
+  @OneToMany((type) => ContractorService, (ca) => ca.contractorId)
+  // @JoinColumn()
+  services: ContractorService[];
 
-  @OneToMany((type) => ConsultantShareHolder, (ca) => ca.consultantId)
-  shareholders: ConsultantShareHolder[];
+  @OneToMany((type) => ContractorShareHolder, (ca) => ca.contractorId)
+  // @JoinColumn()
+  shareholders: ContractorShareHolder[];
 }
+
+
+
+/*
+
+@OneToMany(()=> EDC_VARIANT,(variant) => {variant.edcProd;},)
+@JoinColumn({ referencedColumnName: 'edcProdId' })
+variants: EDC_VARIANT[];
+
+
+@ManyToOne(() => EDC_PRODUCT, (prod) => prod.variants)
+@JoinColumn({ name: 'edcProdId' })
+edcProd: EDC_PRODUCT;
+
+
+*/
+
+

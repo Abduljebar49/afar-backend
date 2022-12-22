@@ -1,23 +1,24 @@
 import { createQueryBuilder } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Consultant } from "../../entity/consultant";
+import { Consultant } from "../../entity/Consultant";
 import { ConsultantApplication } from "../../entity/ConsultantApplication";
+import { ContractorApplication } from "../../entity/ContractorApplication";
 import { ConsultantCar } from "../../entity/ConsultantCar";
-import { ConsultantContractionProperty } from "../../entity/ConsultantConstructionPropery";
-import { ConsultantEmployee } from "../../entity/ConsultantEmployee";
-import { ConsultantProject } from "../../entity/ConsultantProject";
-import { ConsultantShareHolder } from "../../entity/ConsultantShareholder";
+import { ContractionProperty } from "../../entity/ContractorConstructionPropery";
+import { ContractorEmployee } from "../../entity/ContractorEmployee";
+import { ContractorProject } from "../../entity/ContractorProject";
+import { ContractorShareHolder } from "../../entity/ContractorShareholder";
+
 
 export async function saveConsultant(req, res) {
   const conRepository = AppDataSource.getRepository(Consultant);
   const conApplicationRepo = AppDataSource.getRepository(ConsultantApplication);
   const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
-  const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
-  const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
-  const conShareHoderRepo = AppDataSource.getRepository(ConsultantShareHolder);
-  const conEquipmentRepo = AppDataSource.getRepository(
-    ConsultantContractionProperty
-  );
+  const conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
+  const conProjectRepo = AppDataSource.getRepository(ContractorProject);
+  const conShareHoderRepo = AppDataSource.getRepository(ContractorShareHolder);
+  const conEquipmentRepo = AppDataSource.getRepository(ContractionProperty);
+
   try {
     const body: any = req.body;
 
@@ -33,15 +34,14 @@ export async function saveConsultant(req, res) {
     delete body.shareholders;
     delete body.equipments;
 
-    const data: any = await conRepository.save(body);
+    const data = await conRepository.save(body);
     const applicationBody = {
-      consultantId: data.id,
       appliedForId: data.appliedForId,
       serviceType: data.constructionTypeId,
       serviceLevel: data.constructionLevelId,
       recordRemark: data.remark ?? "",
+      consultantId: data.id,
     };
-
     const conAppData = await conApplicationRepo.save(applicationBody);
     data.constractionApplication = conAppData;
 
@@ -50,7 +50,7 @@ export async function saveConsultant(req, res) {
         var carsObj: any = [];
         cars.forEach((ele) => {
           var temp = {
-            consultantId: data.id,
+            contractorId: data.id,
             model: ele.model,
             type: ele.type,
             libreNumber: ele.libreNumber,
@@ -58,11 +58,10 @@ export async function saveConsultant(req, res) {
           };
           carsObj.push(temp);
         });
+        // console.log("carsObj : ",carsObj);
         await conCarsRepo.save(carsObj);
         data.cars = carsObj;
-      } catch (er) {
-        console.log("error : ", er);
-      }
+      } catch (er) {}
     }
 
     if (employees) {
@@ -71,16 +70,14 @@ export async function saveConsultant(req, res) {
 
         employees.forEach((ele) => {
           employeeObj.push({
-            consultantId: data.id,
+            contractorId: data.id,
             idNumber: ele.idNumber ?? "",
             fullName: ele.fullName ?? "",
           });
         });
         await conEmployeeRepo.save(employeeObj);
         data.employees = employeeObj;
-      } catch (er) {
-        console.log("error : ", er);
-      }
+      } catch (er) {}
     }
 
     if (projects) {
@@ -89,7 +86,7 @@ export async function saveConsultant(req, res) {
 
         projects.forEach((ele) => {
           projectsObj.push({
-            consultantId: data.id,
+            contractorId: data.id,
             projectName: ele.projectName ?? "",
             projectValue: ele.projectValue ?? "",
             projectStatus: ele.projectStatus ?? "",
@@ -97,9 +94,7 @@ export async function saveConsultant(req, res) {
         });
         await conProjectRepo.save(projectsObj);
         data.projects = projectsObj;
-      } catch (er) {
-        console.log("error : ", er);
-      }
+      } catch (er) {}
     }
 
     if (shareholders) {
@@ -108,16 +103,14 @@ export async function saveConsultant(req, res) {
 
         shareholders.forEach((ele) => {
           shareholdersObj.push({
-            consultantId: data.id,
+            contractorId: data.id,
             name: ele.shareholders ?? "",
             amount: ele.shareAmount ?? "",
           });
         });
         await conShareHoderRepo.save(shareholdersObj);
         data.shareholders = shareholdersObj;
-      } catch (er) {
-        console.log("error : ", er);
-      }
+      } catch (er) {}
     }
 
     if (equipments) {
@@ -126,18 +119,15 @@ export async function saveConsultant(req, res) {
 
         equipments.forEach((ele) => {
           equipmentsObj.push({
-            consultantId: data.id,
+            contractorId: data.id,
             propertyId: ele.propertyTypeId ?? 0,
             capacity: ele.capacity ?? "",
-            manufacturedDate: ele.manufacturedDate ?? new Date(),
+            manufacturedDate: ele.manufacturedDate,
           });
         });
-        console.log("equimpment : ", equipmentsObj);
         await conEquipmentRepo.save(equipmentsObj);
         data.equipments = equipmentsObj;
-      } catch (er) {
-        console.log("error : ", er);
-      }
+      } catch (er) {}
     }
 
     res.send({
@@ -169,7 +159,7 @@ export async function getAllConsultant(req, res) {
   }
 }
 
-export async function getWithStatus(req, res) {
+export async function getWithStatusConsultant(req, res) {
   try {
     const status = req.params.status;
     if (!status) {
@@ -187,7 +177,7 @@ export async function getWithStatus(req, res) {
   }
 }
 
-export async function getWithId(req, res) {
+export async function getWithIdConsultant(req, res) {
   try {
     const id = req.params.id;
     if (!id) {
@@ -195,49 +185,47 @@ export async function getWithId(req, res) {
     }
     const conRepository = AppDataSource.getRepository(Consultant);
     const conApplicationRepo = AppDataSource.getRepository(
-      ConsultantApplication
+      ContractorApplication
     );
     const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
-    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
-    const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
+    const conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
+    const conProjectRepo = AppDataSource.getRepository(ContractorProject);
     const conShareHoderRepo = AppDataSource.getRepository(
-      ConsultantShareHolder
+      ContractorShareHolder
     );
-    const conEquipmentRepo = AppDataSource.getRepository(
-      ConsultantContractionProperty
-    );
+    const conEquipmentRepo = AppDataSource.getRepository(ContractionProperty);
 
-    const data: any = await conRepository
-      .createQueryBuilder("Consultant")
-      .where("Consultant.id = :id", { id })
+    const data = await conRepository
+      .createQueryBuilder("contractor")
+      .where("contractor.id = :id", { id })
       .getOne();
     if (data) {
-      const cars = await conCarsRepo.find({ where: { consultantId: id } });
+      const cars = await conCarsRepo.find({ where: { contractorId: id } });
       const employees = await conEmployeeRepo.find({
-        where: { consultantId: id },
+        where: { contractorId: id },
       });
       const projects = await conProjectRepo.find({
-        where: { consultantId: id },
+        where: { contractorId: id },
       });
       const shareholders = await conShareHoderRepo.find({
-        where: { consultantId: id },
+        where: { contractorId: id },
       });
       const equipments = await conEquipmentRepo.find({
-        where: { consultantId: id },
+        where: { contractorId: id },
       });
-      const ConsultantApplications = await conApplicationRepo.find({
-        where: { consultantId: id },
+      const contractorApplications = await conApplicationRepo.find({
+        where: { contractorId: id },
       });
       data.cars = cars;
       data.employees = employees;
       data.projects = projects;
       data.shareholders = shareholders;
       data.equipments = equipments;
-      data.ConsultantApplications = ConsultantApplications;
+      //   data.consultantApplications = contractorApplications;
 
       // const data = await conRepository
-      //   .createQueryBuilder("Consultant")
-      //   .where("Consultant.id = :id", { id })
+      //   .createQueryBuilder("contractor")
+      //   .where("contractor.id = :id", { id })
       //   .getOne();
 
       res.send(data);
@@ -255,41 +243,6 @@ export async function getWithId(req, res) {
     });
   }
 }
-
-// export class ConsultantController {
-//   private conRepository = AppDataSource.getRepository(Consultant);
-//   private conApplicationRepo = AppDataSource.getRepository(
-//     ConsultantApplication
-//   );
-//   private conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
-//   private conShareHoderRepo = AppDataSource.getRepository(
-//     ConsultantShareHolder
-//   );
-//   private conServiceRepo = AppDataSource.getRepository(ConsultantService);
-//   private conProjectRepo = AppDataSource.getRepository(ConsultantProject);
-
-//   async all(req: Request, res: Response) {
-//     return this.conRepository.find();
-//   }
-
-//   async save(req: Request, res: Response) {
-//     try {
-//       const body: any = req.body;
-//       const data = await createConsultant(body);
-//       return {
-//         statusCode: 200,
-//         message: "Successfully saved!",
-//         data: data,
-//       };
-//     } catch (er) {
-//       return {
-//         statusCode: 402,
-//         message: "there was error",
-//         error: er,
-//       };
-//     }
-//   }
-// }
 
 export async function funcNameHere(req, res) {
   try {
