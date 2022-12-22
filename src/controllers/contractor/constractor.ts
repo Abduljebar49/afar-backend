@@ -1,15 +1,15 @@
 import { createQueryBuilder } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Contractor } from "../../entity/contractor/Contractor";
+import { Contractor } from "../../entity/Contractor";
 import {
   ContractorApplication,
-} from "../../entity/contractor/ContractorApplication";
-import { ContractorCar } from "../../entity/contractor/ContractorCar";
-import { ContractionProperty } from "../../entity/contractor/ContractorConstructionPropery";
-import { ContractorEmployee } from "../../entity/contractor/ContractorEmployee";
-import { ContractorProject } from "../../entity/contractor/ContractorProject";
-import { ContractorService } from "../../entity/contractor/ContractorService";
-import { ContractorShareHolder } from "../../entity/contractor/ContractorShareholder";
+} from "../../entity/ContractorApplication";
+import { ContractorCar } from "../../entity/ContractorCar";
+import { ContractionProperty } from "../../entity/ContractorConstructionPropery";
+import { ContractorEmployee } from "../../entity/ContractorEmployee";
+import { ContractorProject } from "../../entity/ContractorProject";
+import { ContractorService } from "../../entity/ContractorService";
+import { ContractorShareHolder } from "../../entity/ContractorShareholder";
 import { createContractor } from "../../services/contractor";
 
 export async function saveContractor(req, res) {

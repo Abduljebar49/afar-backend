@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Model, { applicationStatus } from "../Base";
+import Model, { applicationStatus } from "./Base";
 // import { applicationStatus } from "../consultant/ConsultantApplication";
 import {  ContractorApplication } from "./ContractorApplication";
 import { ContractorCar } from "./ContractorCar";

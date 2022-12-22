@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
-import { ConsultantEntity } from "./Consultant";
+import Model from "./Base";
+import { Consultant } from "./Consultant";
  
 @Entity()
-export class ConsultantCarNew extends Model{
+export class ConsultantCar extends Model{
 
     @Column()
     consultantId:string 
@@ -20,6 +20,6 @@ export class ConsultantCarNew extends Model{
     @Column()
     chassisNumber:string
 
-    @ManyToOne(()=>ConsultantEntity,(ca)=>ca.cars)
-    consultant:ConsultantEntity
+    @ManyToOne(()=>Consultant,(ca)=>ca.cars)
+    consultant:Consultant
 }

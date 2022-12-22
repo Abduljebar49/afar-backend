@@ -1,10 +1,10 @@
 import { AppDataSource } from "../../data-source";
-import { ConsultantEmployeeNew } from "../../entity/Consultant/ConsultantEmployeeNew";
+import { ConsultantEmployee } from "../../entity/ConsultantEmployee";
 
 export async function editEmployees(req, res) {
   try {
     const employees = req.body.employees;
-    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployeeNew);
+    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
     if (!employees) {
       res.send({
         message: "employees required",
@@ -36,7 +36,7 @@ export async function editEmployees(req, res) {
 export async function newEmployees(req, res) {
   try {
     const employees = req.body.employees;
-    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployeeNew);
+    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
     if (!employees) {
       res.send({
         message: "employees required",
@@ -68,7 +68,7 @@ export async function newEmployees(req, res) {
 export async function deleteEmployees(req, res) {
   try {
     const id = req.params.id;
-    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployeeNew);
+    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
 
     const data = await conEmployeeRepo
       .createQueryBuilder()

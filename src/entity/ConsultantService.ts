@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
-import { ConsultantEntity } from "./Consultant";
+import Model from "./Base";
+import { Consultant } from "./Consultant";
  
 
 @Entity()
@@ -15,6 +15,6 @@ export class ConsultantService  extends Model{
     @Column()
     certificateTime:string
 
-    @ManyToOne((type)=>ConsultantEntity,(ca)=>ca.services)
-    consultant:ConsultantEntity
+    @ManyToOne((type)=>Consultant,(ca)=>ca.services)
+    consultant:Consultant
 }

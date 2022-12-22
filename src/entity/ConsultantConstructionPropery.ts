@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
+import Model from "./Base";
+import { Consultant } from "./Consultant";
  
 @Entity()
-export class ConsultantContractionPropertyNew extends Model {
+export class ConsultantContractionProperty extends Model {
   @Column()
   propertyId: number;
 
@@ -15,6 +16,6 @@ export class ConsultantContractionPropertyNew extends Model {
   @Column()
   manufacturedDate: Date;
 
-  // @ManyToOne((type)=>Consultant,(ca)=>ca.equipments)
-  // consultant:Consultant
+  @ManyToOne((type)=>Consultant,(ca)=>ca.equipments)
+  consultant:Consultant
 }

@@ -4,7 +4,7 @@ import {
   FindOptionsWhere,
 } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { Contractor } from "../entity/contractor/Contractor";
+import { Contractor } from "../entity/Contractor";
 import { User } from "../entity/User";
 
 const conRepository = AppDataSource.getRepository(Contractor);

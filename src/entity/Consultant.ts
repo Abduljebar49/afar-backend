@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
+import Model, { applicationStatus } from "./Base";
+
 import {  ConsultantApplication } from "./ConsultantApplication";
 import { ConsultantCar } from "./ConsultantCar";
 import { ConsultantContractionProperty } from "./ConsultantConstructionPropery";
@@ -7,14 +8,9 @@ import { ConsultantEmployee } from "./ConsultantEmployee";
 import { ConsultantProject } from "./ConsultantProject";
 import { ConsultantService } from "./ConsultantService";
 import { ConsultantShareHolder } from "./ConsultantShareholder";
- enum applicationStatus {
-  PENDING = "pending",
-  APPROVED = "approved",
-  PAID = "paid",
-  SIGNED = "signed",
-}
+
 @Entity()
-export class ConsultantEntity extends Model{
+export class Consultant extends Model{
   @Column({ nullable: false })
   companyName: string;
 

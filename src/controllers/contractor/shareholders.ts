@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { ContractorShareHolder } from "../../entity/contractor/ContractorShareholder";
+import { ContractorShareHolder } from "../../entity/ContractorShareholder";
 
 export async function editShareholders(req, res) {
   try {

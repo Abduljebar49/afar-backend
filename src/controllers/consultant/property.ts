@@ -1,10 +1,10 @@
 import { AppDataSource } from "../../data-source";
-import { ConsultantContractionPropertyNew } from "../../entity/Consultant/ConsultantConstructionProperyNew";
+import { ConsultantContractionProperty } from "../../entity/ConsultantConstructionPropery";
 
 export async function editProperty(req, res) {
   try {
     const property = req.body.equipments;
-    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionPropertyNew);
+    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionProperty);
     if (!property) {
       res.send({
         message: "Equipment required",
@@ -36,7 +36,7 @@ export async function editProperty(req, res) {
 export async function newProperty(req, res) {
   try {
     const property = req.body.equipments;
-    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionPropertyNew);
+    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionProperty);
     if (!property) {
       res.send({
         message: "Equipments required",
@@ -68,7 +68,7 @@ export async function newProperty(req, res) {
 export async function deleteProperty(req, res) {
   try {
     const id = req.params.id;
-    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionPropertyNew);
+    const conEquipmentRepo = AppDataSource.getRepository(ConsultantContractionProperty);
 
     const data = await conEquipmentRepo
       .createQueryBuilder()

@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { ContractorEmployee } from "../../entity/contractor/ContractorEmployee";
+import { ContractorEmployee } from "../../entity/ContractorEmployee";
 
 export async function editEmployees(req, res) {
   try {

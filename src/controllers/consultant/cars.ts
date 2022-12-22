@@ -1,10 +1,10 @@
 import { AppDataSource } from "../../data-source";
-import { ConsultantCarNew } from "../../entity/consultant/ConsultantCarNew";
+import { ConsultantCar } from "../../entity/ConsultantCar";
 
 export async function editCars(req, res) {
   try {
     const cars = req.body.cars;
-    const conCarsRepo = AppDataSource.getRepository(ConsultantCarNew);
+    const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
     if (!cars) {
       res.send({
         message: "cars required",
@@ -37,7 +37,7 @@ export async function editCars(req, res) {
 export async function newCars(req, res) {
   try {
     const cars = req.body.cars;
-    const conCarsRepo = AppDataSource.getRepository(ConsultantCarNew);
+    const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
     if (!cars) {
       res.send({
         message: "cars required",
@@ -70,7 +70,7 @@ export async function newCars(req, res) {
 export async function deleteCars(req, res) {
   try {
     const id = req.params.id;
-    const conCarsRepo = AppDataSource.getRepository(ConsultantCarNew);
+    const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
 
     const data = await conCarsRepo
       .createQueryBuilder()

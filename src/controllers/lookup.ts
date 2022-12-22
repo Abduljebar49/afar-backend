@@ -1,9 +1,9 @@
 import { AppDataSource } from "../data-source";
-import { AppliedFor } from "../entity/lookups/LUAppliedFor";
+import { AppliedFor } from "../entity/LUAppliedFor";
 import { Competency } from "../entity/LUCompetency";
-import { ConstructionLevel } from "../entity/lookups/LUConstructionLevel";
-import { ContractionType } from "../entity/lookups/LUConstructionTypes";
-import { PropertyType } from "../entity/lookups/LUProperty";
+import { ConstructionLevel } from "../entity/LUConstructionLevel";
+import { ContractionType } from "../entity/LUConstructionTypes";
+import { PropertyType } from "../entity/LUProperty";
 
 export async function getAppleidFor(req, res) {
   try {

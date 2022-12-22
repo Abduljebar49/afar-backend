@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
-import { ConsultantEntity } from "./Consultant";
+import Model from "./Base";
+import { Consultant } from "./Consultant";
  
 
 @Entity()
-export class ConsultantProjectNew  extends Model{
+export class ConsultantProject  extends Model{
 
     @Column()
     consultantId:string 
@@ -18,6 +18,6 @@ export class ConsultantProjectNew  extends Model{
     @Column()
     projectStatus:string
 
-    @ManyToOne((type)=>ConsultantEntity,(ca)=>ca.projects)
-    consultant:ConsultantEntity
+    @ManyToOne((type)=>Consultant,(ca)=>ca.projects)
+    consultant:Consultant
 }

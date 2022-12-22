@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { ContractorCar } from "../../entity/contractor/ContractorCar";
+import { ContractorCar } from "../../entity/ContractorCar";
 
 export async function editCars(req, res) {
   try {

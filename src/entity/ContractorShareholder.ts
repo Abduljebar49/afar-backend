@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
+import Model from "./Base";
 import { Contractor } from "./Contractor";
 
 
 @Entity()
-export class ContractorShareHolderNew  extends Model{
+export class ContractorShareHolder  extends Model{
     @Column()
     contractorId:string 
 

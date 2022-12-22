@@ -1,28 +1,22 @@
 import { createQueryBuilder } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { ConsultantEntity } from "../../entity/consultant/Consultant";
-import { ConsultantApplication } from "../../entity/consultant/ConsultantApplication";
-import { ConsultantCar } from "../../entity/Consultant/ConsultantCar";
-import { ConsultantCarNew } from "../../entity/consultant/ConsultantCarNew";
-// import { ConsultantCar } from "../../entity/Consultant/ConsultantCar";
-import { ConsultantContractionProperty } from "../../entity/Consultant/ConsultantConstructionPropery";
-import { ConsultantContractionPropertyNew } from "../../entity/Consultant/ConsultantConstructionProperyNew";
-import { ConsultantEmployee } from "../../entity/Consultant/ConsultantEmployee";
-import { ConsultantEmployeeNew } from "../../entity/consultant/ConsultantEmployeeNew";
-import { ConsultantProject } from "../../entity/Consultant/ConsultantProject";
-import { ConsultantProjectNew } from "../../entity/consultant/ConsultantProjectNew";
-import { ConsultantShareHolder } from "../../entity/Consultant/ConsultantShareholder";
-import { ConsultantShareHolderNew } from "../../entity/consultant/ConsultantShareholderNew";
+import { Consultant } from "../../entity/consultant";
+import { ConsultantApplication } from "../../entity/ConsultantApplication";
+import { ConsultantCar } from "../../entity/ConsultantCar";
+import { ConsultantContractionProperty } from "../../entity/ConsultantConstructionPropery";
+import { ConsultantEmployee } from "../../entity/ConsultantEmployee";
+import { ConsultantProject } from "../../entity/ConsultantProject";
+import { ConsultantShareHolder } from "../../entity/ConsultantShareholder";
 
 export async function saveConsultant(req, res) {
-  const conRepository = AppDataSource.getRepository(ConsultantEntity);
+  const conRepository = AppDataSource.getRepository(Consultant);
   const conApplicationRepo = AppDataSource.getRepository(ConsultantApplication);
-  const conCarsRepo = AppDataSource.getRepository(ConsultantCarNew);
-  const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployeeNew);
-  const conProjectRepo = AppDataSource.getRepository(ConsultantProjectNew);
-  const conShareHoderRepo = AppDataSource.getRepository(ConsultantShareHolderNew);
+  const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
+  const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
+  const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
+  const conShareHoderRepo = AppDataSource.getRepository(ConsultantShareHolder);
   const conEquipmentRepo = AppDataSource.getRepository(
-    ConsultantContractionPropertyNew
+    ConsultantContractionProperty
   );
   try {
     const body: any = req.body;
@@ -67,7 +61,7 @@ export async function saveConsultant(req, res) {
         await conCarsRepo.save(carsObj);
         data.cars = carsObj;
       } catch (er) {
-        console.log("error : ",er);
+        console.log("error : ", er);
       }
     }
 
@@ -85,7 +79,7 @@ export async function saveConsultant(req, res) {
         await conEmployeeRepo.save(employeeObj);
         data.employees = employeeObj;
       } catch (er) {
-        console.log("error : ",er);
+        console.log("error : ", er);
       }
     }
 
@@ -104,7 +98,7 @@ export async function saveConsultant(req, res) {
         await conProjectRepo.save(projectsObj);
         data.projects = projectsObj;
       } catch (er) {
-        console.log("error : ",er);
+        console.log("error : ", er);
       }
     }
 
@@ -122,7 +116,7 @@ export async function saveConsultant(req, res) {
         await conShareHoderRepo.save(shareholdersObj);
         data.shareholders = shareholdersObj;
       } catch (er) {
-        console.log("error : ",er);
+        console.log("error : ", er);
       }
     }
 
@@ -135,14 +129,14 @@ export async function saveConsultant(req, res) {
             consultantId: data.id,
             propertyId: ele.propertyTypeId ?? 0,
             capacity: ele.capacity ?? "",
-            manufacturedDate: ele.manufacturedDate??new Date(),
+            manufacturedDate: ele.manufacturedDate ?? new Date(),
           });
         });
-        console.log("equimpment : ",equipmentsObj)
+        console.log("equimpment : ", equipmentsObj);
         await conEquipmentRepo.save(equipmentsObj);
         data.equipments = equipmentsObj;
       } catch (er) {
-        console.log("error : ",er);
+        console.log("error : ", er);
       }
     }
 
@@ -163,7 +157,7 @@ export async function saveConsultant(req, res) {
 
 export async function getAllConsultant(req, res) {
   try {
-    const conRepository = AppDataSource.getRepository(ConsultantEntity);
+    const conRepository = AppDataSource.getRepository(Consultant);
     const data = await conRepository.find();
     res.json(data);
   } catch (er) {
@@ -181,7 +175,7 @@ export async function getWithStatus(req, res) {
     if (!status) {
       res.send({ message: "status required", error: "error" });
     }
-    const conRepository = AppDataSource.getRepository(ConsultantEntity);
+    const conRepository = AppDataSource.getRepository(Consultant);
     const data = await conRepository.find({ where: { status: status } });
     res.json(data);
   } catch (er) {
@@ -199,7 +193,7 @@ export async function getWithId(req, res) {
     if (!id) {
       res.send({ message: "No ID has given", error: "error" });
     }
-    const conRepository = AppDataSource.getRepository(ConsultantEntity);
+    const conRepository = AppDataSource.getRepository(Consultant);
     const conApplicationRepo = AppDataSource.getRepository(
       ConsultantApplication
     );
@@ -213,7 +207,7 @@ export async function getWithId(req, res) {
       ConsultantContractionProperty
     );
 
-    const data = await conRepository
+    const data: any = await conRepository
       .createQueryBuilder("Consultant")
       .where("Consultant.id = :id", { id })
       .getOne();
@@ -263,7 +257,7 @@ export async function getWithId(req, res) {
 }
 
 // export class ConsultantController {
-//   private conRepository = AppDataSource.getRepository(ConsultantEntity);
+//   private conRepository = AppDataSource.getRepository(Consultant);
 //   private conApplicationRepo = AppDataSource.getRepository(
 //     ConsultantApplication
 //   );

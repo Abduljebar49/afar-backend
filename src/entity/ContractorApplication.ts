@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model, { applicationStatus } from "../Base";
+import Model, { applicationStatus } from "./Base";
 import { Contractor } from "./Contractor";
 
 @Entity()

@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import LookUpModel from "../LUBase";
+import LookUpModel from "./LUBase";
 
 
 @Entity()

@@ -1,22 +1,19 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
+import Model from "./Base";
 import { Contractor } from "./Contractor";
 
 
 @Entity()
-export class ContractorProject  extends Model{
+export class ContractorService  extends Model{
 
     @Column()
     contractorId:string 
 
     @Column()
-    projectName:string
+    certificateDay:Date
 
     @Column()
-    projectValue:string
-
-    @Column()
-    projectStatus:string
+    certificateTime:string
 
     @ManyToOne((type)=>Contractor,(ca)=>ca.cars)
     contractor:Contractor

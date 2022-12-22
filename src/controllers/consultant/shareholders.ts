@@ -1,11 +1,11 @@
 import { AppDataSource } from "../../data-source";
-import { ConsultantShareHolderNew } from "../../entity/Consultant/ConsultantShareholderNew";
+import { ConsultantShareHolder } from "../../entity/ConsultantShareholder";
 
 export async function editShareholders(req, res) {
   try {
     const shareholders = req.body.shareholders;
     const conShareHoderRepo = AppDataSource.getRepository(
-      ConsultantShareHolderNew
+      ConsultantShareHolder
     );
     if (!shareholders) {
       res.send({
@@ -38,7 +38,7 @@ export async function newShareholders(req, res) {
   try {
     const shareholders = req.body.shareholders;
     const conShareHoderRepo = AppDataSource.getRepository(
-      ConsultantShareHolderNew
+      ConsultantShareHolder
     );
     if (!shareholders) {
       res.send({
@@ -71,7 +71,7 @@ export async function deleteShareholders(req, res) {
   try {
     const id = req.params.id;
     const conShareHoderRepo = AppDataSource.getRepository(
-      ConsultantShareHolderNew
+      ConsultantShareHolder
     );
 
     const data = await conShareHoderRepo

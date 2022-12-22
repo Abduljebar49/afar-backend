@@ -1,10 +1,10 @@
 import { AppDataSource } from "../../data-source";
-import { ConsultantProjectNew } from "./../../../src/entity/Consultant/ConsultantProjectNew";
+import { ConsultantProject } from "../../entity/ConsultantProject";
 
 export async function editProjects(req, res) {
   try {
     const projects = req.body.projects;
-    const conProjectRepo = AppDataSource.getRepository(ConsultantProjectNew);
+    const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
     if (!projects) {
       res.send({
         message: "projects required",
@@ -38,7 +38,7 @@ export async function editProjects(req, res) {
 export async function newProjects(req, res) {
   try {
     const projects = req.body.projects;
-    const conProjectRepo = AppDataSource.getRepository(ConsultantProjectNew);
+    const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
     if (!projects) {
       res.send({
         message: "projects required",
@@ -71,7 +71,7 @@ export async function newProjects(req, res) {
 export async function deleteProjects(req, res) {
   try {
     const id = req.params.id;
-    const conProjectRepo = AppDataSource.getRepository(ConsultantProjectNew);
+    const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
 
     const data = await conProjectRepo
       .createQueryBuilder()

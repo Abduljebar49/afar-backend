@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Model from "../Base";
-import { ConsultantEntity } from "./Consultant";
+import Model from "./Base";
+import { Consultant } from "./Consultant";
  
 
 @Entity()
@@ -14,6 +14,6 @@ export class ConsultantShareHolder  extends Model{
     @Column()
     amount:string
 
-    @ManyToOne((type)=>ConsultantEntity,(ca)=>ca.shareholders)
-    consultant:ConsultantEntity
+    @ManyToOne((type)=>Consultant,(ca)=>ca.shareholders)
+    consultant:Consultant
 }

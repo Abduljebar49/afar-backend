@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { ContractionProperty } from "../../entity/contractor/ContractorConstructionPropery";
+import { ContractionProperty } from "../../entity/ContractorConstructionPropery";
 
 export async function editProperty(req, res) {
   try {
