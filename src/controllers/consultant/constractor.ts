@@ -4,10 +4,10 @@ import { Consultant } from "../../entity/Consultant";
 import { ConsultantApplication } from "../../entity/ConsultantApplication";
 import { ContractorApplication } from "../../entity/ContractorApplication";
 import { ConsultantCar } from "../../entity/ConsultantCar";
-import { ContractionProperty } from "../../entity/ContractorConstructionPropery";
 import { ContractorEmployee } from "../../entity/ContractorEmployee";
 import { ContractorProject } from "../../entity/ContractorProject";
 import { ContractorShareHolder } from "../../entity/ContractorShareholder";
+import { ConsultantProperty } from "../../entity/ConsultantPropery";
 
 
 export async function saveConsultant(req, res) {
@@ -17,7 +17,7 @@ export async function saveConsultant(req, res) {
   const conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
   const conProjectRepo = AppDataSource.getRepository(ContractorProject);
   const conShareHoderRepo = AppDataSource.getRepository(ContractorShareHolder);
-  const conEquipmentRepo = AppDataSource.getRepository(ContractionProperty);
+  const conEquipmentRepo = AppDataSource.getRepository(ConsultantProperty);
 
   try {
     const body: any = req.body;
@@ -50,7 +50,7 @@ export async function saveConsultant(req, res) {
         var carsObj: any = [];
         cars.forEach((ele) => {
           var temp = {
-            contractorId: data.id,
+            consultantId: data.id,
             model: ele.model,
             type: ele.type,
             libreNumber: ele.libreNumber,
@@ -63,6 +63,23 @@ export async function saveConsultant(req, res) {
         data.cars = carsObj;
       } catch (er) {}
     }
+
+    if (equipments) {
+        try {
+          var equipmentsObj: any = [];
+  
+          equipments.forEach((ele) => {
+            equipmentsObj.push({
+              consultantId: data.id,
+              propertyId: ele.propertyTypeId ?? 0,
+              capacity: ele.capacity ?? "",
+              manufacturedDate: ele.manufacturedDate,
+            });
+          });
+          await conEquipmentRepo.save(equipmentsObj);
+          data.equipments = equipmentsObj;
+        } catch (er) {}
+      }
 
     if (employees) {
       try {
@@ -113,22 +130,7 @@ export async function saveConsultant(req, res) {
       } catch (er) {}
     }
 
-    if (equipments) {
-      try {
-        var equipmentsObj: any = [];
 
-        equipments.forEach((ele) => {
-          equipmentsObj.push({
-            contractorId: data.id,
-            propertyId: ele.propertyTypeId ?? 0,
-            capacity: ele.capacity ?? "",
-            manufacturedDate: ele.manufacturedDate,
-          });
-        });
-        await conEquipmentRepo.save(equipmentsObj);
-        data.equipments = equipmentsObj;
-      } catch (er) {}
-    }
 
     res.send({
       statusCode: 200,
@@ -193,14 +195,14 @@ export async function getWithIdConsultant(req, res) {
     const conShareHoderRepo = AppDataSource.getRepository(
       ContractorShareHolder
     );
-    const conEquipmentRepo = AppDataSource.getRepository(ContractionProperty);
+    const conEquipmentRepo = AppDataSource.getRepository(ConsultantProperty);
 
     const data = await conRepository
       .createQueryBuilder("contractor")
       .where("contractor.id = :id", { id })
       .getOne();
     if (data) {
-      const cars = await conCarsRepo.find({ where: { contractorId: id } });
+      const cars = await conCarsRepo.find({ where: { consultantId: id } });
       const employees = await conEmployeeRepo.find({
         where: { contractorId: id },
       });
@@ -211,7 +213,7 @@ export async function getWithIdConsultant(req, res) {
         where: { contractorId: id },
       });
       const equipments = await conEquipmentRepo.find({
-        where: { contractorId: id },
+        where: { consultantId: id },
       });
       const contractorApplications = await conApplicationRepo.find({
         where: { contractorId: id },

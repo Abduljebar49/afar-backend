@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "t
 import Model, { applicationStatus } from "./Base";
 import { ConsultantApplication } from "./ConsultantApplication";
 import { ConsultantCar } from "./ConsultantCar";
+import { ConsultantProperty } from "./ConsultantPropery";
 // import { applicationStatus } from "../consultant/ConsultantApplication";
 import {  ContractorApplication } from "./ContractorApplication";
 import { ContractorCar } from "./ContractorCar";
@@ -79,7 +80,7 @@ export class Consultant extends Model {
   constructionTypeId: number;
 
 
-  @OneToMany((_type) => ConsultantCar, (ca) => ca.contractorId,{
+  @OneToMany((_type) => ConsultantCar, (ca) => ca.consultantId,{
     cascade:true
   })
   cars: ConsultantCar[];
@@ -91,8 +92,8 @@ export class Consultant extends Model {
   @OneToMany((type) => ContractorEmployee, (ca) => ca.contractorId)
   employees: ContractorEmployee[];
 
-  @OneToMany((type) => ContractionProperty, (ca) => ca.contractorId)
-  equipments: ContractionProperty[];
+  @OneToMany((type) => ConsultantProperty, (ca) => ca.consultantId)
+  equipments: ConsultantProperty[];
 
   @OneToMany((type) => ContractorProject, (ca) => ca.contractorId)
   // @JoinColumn()

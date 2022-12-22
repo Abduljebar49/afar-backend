@@ -6,7 +6,7 @@ import Model from "./Base";
 export class ConsultantCar  extends Model{
 
     @Column()
-    contractorId:string 
+    consultantId:string 
 
     @Column()
     model:string
