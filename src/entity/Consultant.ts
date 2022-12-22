@@ -2,7 +2,11 @@ import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "t
 import Model, { applicationStatus } from "./Base";
 import { ConsultantApplication } from "./ConsultantApplication";
 import { ConsultantCar } from "./ConsultantCar";
+import { ConsultantEmployee } from "./ConsultantEmployee";
+import { ConsultantProject } from "./ConsultantProject";
 import { ConsultantProperty } from "./ConsultantPropery";
+import { ConsultantService } from "./ConsultantService";
+import { ConsultantShareHolder } from "./ConsultantShareholder";
 // import { applicationStatus } from "../consultant/ConsultantApplication";
 import {  ContractorApplication } from "./ContractorApplication";
 import { ContractorCar } from "./ContractorCar";
@@ -89,23 +93,23 @@ export class Consultant extends Model {
   // @JoinColumn()
   consultantApplications: ConsultantApplication[];
 
-  @OneToMany((type) => ContractorEmployee, (ca) => ca.contractorId)
-  employees: ContractorEmployee[];
+  @OneToMany((type) => ConsultantEmployee, (ca) => ca.consultantId)
+  employees: ConsultantEmployee[];
 
   @OneToMany((type) => ConsultantProperty, (ca) => ca.consultantId)
   equipments: ConsultantProperty[];
 
-  @OneToMany((type) => ContractorProject, (ca) => ca.contractorId)
+  @OneToMany((type) => ConsultantProject, (ca) => ca.consultantId)
   // @JoinColumn()
-  projects: ContractorProject[];
+  projects: ConsultantProject[];
 
-  @OneToMany((type) => ContractorService, (ca) => ca.contractorId)
+  @OneToMany((type) => ConsultantService, (ca) => ca.consultantId)
   // @JoinColumn()
-  services: ContractorService[];
+  services: ConsultantService[];
 
-  @OneToMany((type) => ContractorShareHolder, (ca) => ca.contractorId)
+  @OneToMany((type) => ConsultantShareHolder, (ca) => ca.consultantId)
   // @JoinColumn()
-  shareholders: ContractorShareHolder[];
+  shareholders: ConsultantShareHolder[];
 }
 
 

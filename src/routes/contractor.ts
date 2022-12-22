@@ -27,6 +27,7 @@ import {
   newEmployees,
 } from "../controllers/contractor/employees";
 import { getAllConsultant, getWithIdConsultant, getWithStatusConsultant, saveConsultant } from "../controllers/consultant/constractor";
+import { deleteCarsC, editCarsC, newCarsC } from "../controllers/consultant/cars";
 
 const router = express.Router();
 
@@ -47,6 +48,11 @@ router.get(`${consApi}/status/:status`, getWithStatusConsultant);
 router.post(`${conApi}/cars/edit`, editCars);
 router.post(`${conApi}/cars/new`, newCars);
 router.delete(`${conApi}/cars/delete/:id`, deleteCars);
+
+//Consultant car api
+router.post(`${consApi}/cars/edit`, editCarsC);
+router.post(`${consApi}/cars/new`, newCarsC);
+router.delete(`${consApi}/cars/delete/:id`, deleteCarsC);
 
 //project api
 router.post(`${conApi}/projects/edit`, editProjects);

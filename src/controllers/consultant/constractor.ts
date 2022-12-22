@@ -4,19 +4,19 @@ import { Consultant } from "../../entity/Consultant";
 import { ConsultantApplication } from "../../entity/ConsultantApplication";
 import { ContractorApplication } from "../../entity/ContractorApplication";
 import { ConsultantCar } from "../../entity/ConsultantCar";
-import { ContractorEmployee } from "../../entity/ContractorEmployee";
-import { ContractorProject } from "../../entity/ContractorProject";
-import { ContractorShareHolder } from "../../entity/ContractorShareholder";
 import { ConsultantProperty } from "../../entity/ConsultantPropery";
+import { ConsultantEmployee } from "../../entity/ConsultantEmployee";
+import { ConsultantProject } from "../../entity/ConsultantProject";
+import { ConsultantShareHolder } from "../../entity/ConsultantShareholder";
 
 
 export async function saveConsultant(req, res) {
   const conRepository = AppDataSource.getRepository(Consultant);
   const conApplicationRepo = AppDataSource.getRepository(ConsultantApplication);
   const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
-  const conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
-  const conProjectRepo = AppDataSource.getRepository(ContractorProject);
-  const conShareHoderRepo = AppDataSource.getRepository(ContractorShareHolder);
+  const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
+  const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
+  const conShareHoderRepo = AppDataSource.getRepository(ConsultantShareHolder);
   const conEquipmentRepo = AppDataSource.getRepository(ConsultantProperty);
 
   try {
@@ -87,7 +87,7 @@ export async function saveConsultant(req, res) {
 
         employees.forEach((ele) => {
           employeeObj.push({
-            contractorId: data.id,
+            consultantId: data.id,
             idNumber: ele.idNumber ?? "",
             fullName: ele.fullName ?? "",
           });
@@ -103,7 +103,7 @@ export async function saveConsultant(req, res) {
 
         projects.forEach((ele) => {
           projectsObj.push({
-            contractorId: data.id,
+            consultantId: data.id,
             projectName: ele.projectName ?? "",
             projectValue: ele.projectValue ?? "",
             projectStatus: ele.projectStatus ?? "",
@@ -120,7 +120,7 @@ export async function saveConsultant(req, res) {
 
         shareholders.forEach((ele) => {
           shareholdersObj.push({
-            contractorId: data.id,
+            consultantId: data.id,
             name: ele.shareholders ?? "",
             amount: ele.shareAmount ?? "",
           });
@@ -187,13 +187,13 @@ export async function getWithIdConsultant(req, res) {
     }
     const conRepository = AppDataSource.getRepository(Consultant);
     const conApplicationRepo = AppDataSource.getRepository(
-      ContractorApplication
+      ConsultantApplication
     );
     const conCarsRepo = AppDataSource.getRepository(ConsultantCar);
-    const conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
-    const conProjectRepo = AppDataSource.getRepository(ContractorProject);
+    const conEmployeeRepo = AppDataSource.getRepository(ConsultantEmployee);
+    const conProjectRepo = AppDataSource.getRepository(ConsultantProject);
     const conShareHoderRepo = AppDataSource.getRepository(
-      ContractorShareHolder
+      ConsultantShareHolder
     );
     const conEquipmentRepo = AppDataSource.getRepository(ConsultantProperty);
 
@@ -204,19 +204,19 @@ export async function getWithIdConsultant(req, res) {
     if (data) {
       const cars = await conCarsRepo.find({ where: { consultantId: id } });
       const employees = await conEmployeeRepo.find({
-        where: { contractorId: id },
+        where: { consultantId: id },
       });
       const projects = await conProjectRepo.find({
-        where: { contractorId: id },
+        where: { consultantId: id },
       });
       const shareholders = await conShareHoderRepo.find({
-        where: { contractorId: id },
+        where: { consultantId: id },
       });
       const equipments = await conEquipmentRepo.find({
         where: { consultantId: id },
       });
       const contractorApplications = await conApplicationRepo.find({
-        where: { contractorId: id },
+        where: { consultantId: id },
       });
       data.cars = cars;
       data.employees = employees;
