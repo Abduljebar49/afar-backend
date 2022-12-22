@@ -54,6 +54,8 @@ import {
   saveProfessional, 
   getWithStatusProfessional,
  } from "../controllers/professional/professional";
+import { editEmployment, newEmployment, deleteEmployment } from "../controllers/professional/employment";
+import { editEducation, newEducation, deleteEducation } from "../controllers/professional/education";
 
 const router = express.Router();
 
@@ -129,6 +131,17 @@ router.delete(`${conApi}/employees/delete/:id`, deleteEmployees);
 router.post(`${consApi}/employees/edit`, editEmployeesC);
 router.post(`${consApi}/employees/new`, newEmployeesC);
 router.delete(`${consApi}/employees/delete/:id`, deleteEmployeesC);
+
+//professional educational api's
+//employment api
+router.post(`${proApi}/educations/edit`, editEducation);
+router.post(`${proApi}/educations/new`, newEducation);
+router.delete(`${proApi}/educations/delete/:id`, deleteEducation);
+
+//employment api
+router.post(`${proApi}/employments/edit`, editEmployment);
+router.post(`${proApi}/employments/new`, newEmployment);
+router.delete(`${proApi}/employments/delete/:id`, deleteEmployment);
 
 // router.use(Consrouter);
 export { router };
