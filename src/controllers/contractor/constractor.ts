@@ -10,7 +10,7 @@ import { ContractorEmployee } from "../../entity/ContractorEmployee";
 import { ContractorProject } from "../../entity/ContractorProject";
 import { ContractorService } from "../../entity/ContractorService";
 import { ContractorShareHolder } from "../../entity/ContractorShareholder";
-import { createContractor } from "../../services/contractor";
+// import { createContractor } from "../../services/contractor";
 
 export async function saveContractor(req, res) {
   const conRepository = AppDataSource.getRepository(Contractor);
@@ -232,40 +232,40 @@ export async function getWithId(req, res) {
   }
 }
 
-export class ContractorController {
-  private conRepository = AppDataSource.getRepository(Contractor);
-  private conApplicationRepo = AppDataSource.getRepository(
-    ContractorApplication
-  );
-  private conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
-  private conShareHoderRepo = AppDataSource.getRepository(
-    ContractorShareHolder
-  );
-  private conServiceRepo = AppDataSource.getRepository(ContractorService);
-  private conProjectRepo = AppDataSource.getRepository(ContractorProject);
+// export class ContractorController {
+//   private conRepository = AppDataSource.getRepository(Contractor);
+//   private conApplicationRepo = AppDataSource.getRepository(
+//     ContractorApplication
+//   );
+//   private conEmployeeRepo = AppDataSource.getRepository(ContractorEmployee);
+//   private conShareHoderRepo = AppDataSource.getRepository(
+//     ContractorShareHolder
+//   );
+//   private conServiceRepo = AppDataSource.getRepository(ContractorService);
+//   private conProjectRepo = AppDataSource.getRepository(ContractorProject);
 
-  async all(req: Request, res: Response) {
-    return this.conRepository.find();
-  }
+//   async all(req: Request, res: Response) {
+//     return this.conRepository.find();
+//   }
 
-  async save(req: Request, res: Response) {
-    try {
-      const body: any = req.body;
-      const data = await createContractor(body);
-      return {
-        statusCode: 200,
-        message: "Successfully saved!",
-        data: data,
-      };
-    } catch (er) {
-      return {
-        statusCode: 402,
-        message: "there was error",
-        error: er,
-      };
-    }
-  }
-}
+//   async save(req: Request, res: Response) {
+//     try {
+//       const body: any = req.body;
+//       const data = await createContractor(body);
+//       return {
+//         statusCode: 200,
+//         message: "Successfully saved!",
+//         data: data,
+//       };
+//     } catch (er) {
+//       return {
+//         statusCode: 402,
+//         message: "there was error",
+//         error: er,
+//       };
+//     }
+//   }
+// }
 
 
 

@@ -28,6 +28,10 @@ import {
 } from "../controllers/contractor/employees";
 import { getAllConsultant, getWithIdConsultant, getWithStatusConsultant, saveConsultant } from "../controllers/consultant/constractor";
 import { deleteCarsC, editCarsC, newCarsC } from "../controllers/consultant/cars";
+import { deleteProjectsC, editProjectsC, newProjectsC } from "../controllers/consultant/projects";
+import { deletePropertyC, editPropertyC, newPropertyC } from "../controllers/consultant/property";
+import { deleteShareholdersC, editShareholdersC, newShareholdersC } from "../controllers/consultant/shareholders";
+import { deleteEmployeesC, editEmployeesC, newEmployeesC } from "../controllers/consultant/employees";
 
 const router = express.Router();
 
@@ -54,25 +58,46 @@ router.post(`${consApi}/cars/edit`, editCarsC);
 router.post(`${consApi}/cars/new`, newCarsC);
 router.delete(`${consApi}/cars/delete/:id`, deleteCarsC);
 
-//project api
+//contractor project api
 router.post(`${conApi}/projects/edit`, editProjects);
 router.post(`${conApi}/projects/new`, newProjects);
 router.delete(`${conApi}/projects/delete/:id`, deleteProjects);
 
-//property api
+//consultant project api
+router.post(`${consApi}/projects/edit`, editProjectsC);
+router.post(`${consApi}/projects/new`, newProjectsC);
+router.delete(`${consApi}/projects/delete/:id`, deleteProjectsC);
+
+//contractor property api
 router.post(`${conApi}/property/edit`, editProperty);
 router.post(`${conApi}/property/new`, newProperty);
 router.delete(`${conApi}/property/delete/:id`, deleteProperty);
 
-//shareholders api
+// consultant property api
+router.post(`${consApi}/property/edit`, editPropertyC);
+router.post(`${consApi}/property/new`, newPropertyC);
+router.delete(`${consApi}/property/delete/:id`, deletePropertyC);
+
+// contractor shareholders api
 router.post(`${conApi}/shareholders/edit`, editShareholders);
 router.post(`${conApi}/shareholders/new`, newShareholders);
 router.delete(`${conApi}/shareholders/delete/:id`, deleteShareholders);
 
-//employees api
+
+// consultant shareholders api
+router.post(`${consApi}/shareholders/edit`, editShareholdersC);
+router.post(`${consApi}/shareholders/new`, newShareholdersC);
+router.delete(`${consApi}/shareholders/delete/:id`, deleteShareholdersC);
+
+//contractor employees api
 router.post(`${conApi}/employees/edit`, editEmployees);
 router.post(`${conApi}/employees/new`, newEmployees);
 router.delete(`${conApi}/employees/delete/:id`, deleteEmployees);
+
+//consultant employees api
+router.post(`${consApi}/employees/edit`, editEmployeesC);
+router.post(`${consApi}/employees/new`, newEmployeesC);
+router.delete(`${consApi}/employees/delete/:id`, deleteEmployeesC);
 
 // router.use(Consrouter);
 export { router };
